@@ -23,10 +23,10 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
   const posts = getAllPosts().filter((p) => p.tags.some((t) => tagSlug(t) === tag));
   return (
     <div className="mx-auto max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
-      <a href="/" className="text-sm text-mocha transition hover:text-crema">All posts</a>
-      <h1 className="mt-6 font-serif text-[2.4rem] font-medium tracking-tight text-milk">Posts on {name}</h1>
-      <p className="mt-2 text-mocha">{posts.length} {posts.length === 1 ? "post" : "posts"} so far</p>
-      <div className="mt-10 border-b border-grounds">
+      <a href="/" className="text-sm text-muted transition hover:text-accent">All posts</a>
+      <h1 className="mt-6 font-serif text-[2.4rem] font-medium tracking-tight text-ink">Posts on {name}</h1>
+      <p className="mt-2 text-muted">{posts.length} {posts.length === 1 ? "post" : "posts"} so far</p>
+      <div className="mt-10 border-b border-rule">
         {posts.map((p) => (
           <PostEntry key={p.slug} post={p} />
         ))}

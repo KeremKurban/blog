@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary", title: site.title, description: site.description },
 };
 
-export const viewport: Viewport = { themeColor: "#1b1410", colorScheme: "dark" };
+export const viewport: Viewport = { themeColor: "#faf9f5", colorScheme: "light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-crema focus:px-3 focus:py-2 focus:text-espresso"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-paper"
         >
           Skip to content
         </a>

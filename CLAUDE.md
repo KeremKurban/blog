@@ -11,7 +11,8 @@ Static Next.js export, posts in `content/posts/*.md`. See README.md for frontmat
 
 ## Design system
 
-- Coffee palette, tokens in `src/app/globals.css`: espresso `#1b1410` page, roast `#261c16` surfaces, grounds `#3d2e24` rules, milk `#f2e6d8` headings, latte `#d8c6b2` body, mocha `#a8927d` secondary, crema `#e3ab6a` the only accent.
+- Light, warm palette in the Claude family. Tokens are named by role in `src/app/globals.css`: paper `#faf9f5` page, surface `#f0eee6` code and chips, rule `#dedcd1` borders, ink `#141413` headings, body `#3d3929` text, muted `#6f6b5e` secondary, accent `#ae4f2c` links and active states (meets 4.5:1), clay `#d97757` decoration only (ring, progress bar, bullets). Never use clay for text.
 - Type: Newsreader (serif, titles and body), Instrument Sans (navigation, tags, dates, tables), JetBrains Mono (code only).
 - The index is a journal contents page (date in the margin, serif title), not a card grid. The coffee ring behind the homepage title is the one decorative element; don't add more.
-- Diagrams in posts use the same hex values. Code blocks use the `gruvbox-dark-medium` Shiki theme.
+- The blog is not limited to one subject. Keep homepage and metadata copy topic-neutral.
+- Diagrams in posts use the same hex values (light variants). Code blocks use the `github-light` Shiki theme.

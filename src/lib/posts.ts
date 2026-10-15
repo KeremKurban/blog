@@ -140,7 +140,7 @@ export async function getPost(slug: string): Promise<Post> {
       properties: { className: ["heading-anchor"], ariaHidden: "true", tabIndex: -1 },
       content: { type: "text", value: "#" },
     })
-    .use(rehypePrettyCode, { theme: "gruvbox-dark-medium", keepBackground: false })
+    .use(rehypePrettyCode, { theme: "github-light", keepBackground: false })
     .use(rehypeWrapTables)
     .use(rehypeStringify)
     .process(content);

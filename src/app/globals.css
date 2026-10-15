@@ -2,72 +2,76 @@
 @plugin "@tailwindcss/typography";
 
 /*
-  Coffee palette. One accent (crema); everything else is a roast level.
-  espresso  #1b1410  page
-  roast     #261c16  raised surfaces, code, tables
-  grounds   #3d2e24  rules and borders
-  milk      #f2e6d8  headings, strong text
-  latte     #d8c6b2  body text
-  mocha     #a8927d  secondary text (4.9:1 on espresso)
-  crema     #e3ab6a  links, focus, the one accent
+  Light, warm palette in the Claude family. Tokens are named by role so the
+  whole site can be recoloured here.
+  paper      #faf9f5  page background
+  surface    #f0eee6  code, table headers, chips
+  surface-2  #e8e6dc  hover on surfaces
+  rule       #dedcd1  borders and dividers
+  ink        #141413  headings, strong text   (17.5:1 on paper)
+  body       #3d3929  running text            (11:1)
+  muted      #6f6b5e  dates, labels           (5.1:1)
+  accent     #ae4f2c  links, active states    (5.0:1, white text on it 5.3:1)
+  clay       #d97757  decoration only: ring, progress bar, bullets
 */
 @theme {
   --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, serif;
   --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-espresso: #1b1410;
-  --color-roast: #261c16;
-  --color-roast-2: #2f231b;
-  --color-grounds: #3d2e24;
-  --color-milk: #f2e6d8;
-  --color-latte: #d8c6b2;
-  --color-mocha: #a8927d;
-  --color-crema: #e3ab6a;
-  --color-crema-strong: #f0be85;
+  --color-paper: #faf9f5;
+  --color-surface: #f0eee6;
+  --color-surface-2: #e8e6dc;
+  --color-rule: #dedcd1;
+  --color-ink: #141413;
+  --color-body: #3d3929;
+  --color-muted: #6f6b5e;
+  --color-accent: #ae4f2c;
+  --color-accent-strong: #8f3f22;
+  --color-clay: #d97757;
 }
 
 html {
   scroll-padding-top: 5.5rem;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background: var(--color-espresso);
-  color: var(--color-latte);
+  background: var(--color-paper);
+  color: var(--color-body);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgb(227 171 106 / 0.28);
-  color: var(--color-milk);
+  background: rgb(217 119 87 / 0.25);
+  color: var(--color-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-crema);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 /* ---------- Article typography ---------- */
 .article {
-  --tw-prose-body: var(--color-latte);
-  --tw-prose-headings: var(--color-milk);
-  --tw-prose-lead: var(--color-latte);
-  --tw-prose-links: var(--color-crema);
-  --tw-prose-bold: var(--color-milk);
-  --tw-prose-counters: var(--color-mocha);
-  --tw-prose-bullets: var(--color-crema);
-  --tw-prose-hr: var(--color-grounds);
-  --tw-prose-quotes: var(--color-milk);
-  --tw-prose-quote-borders: var(--color-crema);
-  --tw-prose-code: var(--color-milk);
-  --tw-prose-pre-code: var(--color-latte);
-  --tw-prose-pre-bg: var(--color-roast);
-  --tw-prose-th-borders: var(--color-grounds);
-  --tw-prose-td-borders: rgb(61 46 36 / 0.7);
+  --tw-prose-body: var(--color-body);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-lead: var(--color-body);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-bullets: var(--color-clay);
+  --tw-prose-hr: var(--color-rule);
+  --tw-prose-quotes: var(--color-ink);
+  --tw-prose-quote-borders: var(--color-clay);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-pre-code: var(--color-body);
+  --tw-prose-pre-bg: var(--color-surface);
+  --tw-prose-th-borders: var(--color-rule);
+  --tw-prose-td-borders: var(--color-rule);
   font-family: var(--font-serif);
   font-size: 1.1875rem;
   line-height: 1.72;
@@ -84,7 +88,7 @@ body {
 .article h2 {
   margin-top: 3.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-grounds);
+  border-top: 1px solid var(--color-rule);
   font-size: 1.85rem;
   line-height: 1.2;
 }
@@ -95,15 +99,15 @@ body {
 }
 
 .article a {
-  text-decoration-color: rgb(227 171 106 / 0.45);
+  text-decoration-color: rgb(174 79 44 / 0.4);
   text-underline-offset: 3px;
   font-weight: inherit;
 }
-.article a:hover { text-decoration-color: var(--color-crema); }
+.article a:hover { text-decoration-color: var(--color-accent); }
 
 .article .heading-anchor {
   margin-left: 0.5rem;
-  color: var(--color-mocha);
+  color: var(--color-muted);
   text-decoration: none;
   font-weight: 400;
   opacity: 0;
@@ -113,12 +117,11 @@ body {
 .article h3:hover .heading-anchor,
 .article .heading-anchor:focus-visible { opacity: 1; }
 
-/* Lists, tables and code switch to the sans so dense material scans quickly. */
 .article li::marker { font-family: var(--font-sans); }
 
 .article :not(pre) > code {
-  background: var(--color-roast);
-  border: 1px solid var(--color-grounds);
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
   border-radius: 4px;
   padding: 0.08rem 0.32rem;
   font-size: 0.8em;
@@ -129,7 +132,7 @@ body {
 
 .article figure[data-rehype-pretty-code-figure] { margin: 2rem 0; }
 .article pre {
-  border: 1px solid var(--color-grounds);
+  border: 1px solid var(--color-rule);
   border-radius: 6px;
   padding: 1.1rem 1.25rem;
   font-size: 0.82rem;
@@ -141,8 +144,8 @@ body {
 .article .table-wrap {
   margin: 2rem 0;
   overflow-x: auto;
-  border-top: 1px solid var(--color-grounds);
-  border-bottom: 1px solid var(--color-grounds);
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
 }
 .article .table-wrap table {
   margin: 0;
@@ -153,17 +156,17 @@ body {
 }
 .article .table-wrap th {
   padding: 0.75rem 0.9rem 0.6rem;
-  color: var(--color-milk);
+  color: var(--color-ink);
   font-weight: 600;
-  background: var(--color-roast);
+  background: var(--color-surface);
 }
 .article .table-wrap td { padding: 0.65rem 0.9rem; vertical-align: top; }
-.article .table-wrap tbody tr:nth-child(even) td { background: rgb(38 28 22 / 0.45); }
+.article .table-wrap tbody tr:nth-child(even) td { background: rgb(240 238 230 / 0.55); }
 
 .article img {
   border-radius: 6px;
-  border: 1px solid var(--color-grounds);
-  background: var(--color-roast);
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
 }
 
 .article blockquote {

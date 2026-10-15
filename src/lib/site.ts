@@ -1,9 +1,9 @@
 export const site = {
   name: "Kerem Kurban",
   title: "Kerem Kurban, notes",
-  tagline: "Field notes on agentic AI, evaluation and interpretability",
+  tagline: "Notes on what I'm building, reading and figuring out",
   description:
-    "Long-form notes by Kerem Kurban, ML engineer in Geneva: building agentic systems for regulated industry, evaluating them, and understanding how models reach their outputs.",
+    "Long-form writing by Kerem Kurban, an ML engineer in Geneva. Machine learning, neuroscience, engineering practice and whatever else is worth working through in writing.",
   url: "https://blog.keremkurban.site",
   home: "https://keremkurban.site",
   github: "https://github.com/KeremKurban",

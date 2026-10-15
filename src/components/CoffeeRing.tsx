@@ -17,17 +17,17 @@ export function CoffeeRing({ className = "" }: { className?: string }) {
           <feGaussianBlur stdDeviation="2.4" />
         </filter>
       </defs>
-      <g filter="url(#stain)" fill="none" stroke="#e3ab6a">
-        <circle cx="200" cy="200" r="150" strokeWidth="5" strokeOpacity="0.22" />
-        <circle cx="203" cy="198" r="146" strokeWidth="1.5" strokeOpacity="0.16" />
+      <g filter="url(#stain)" fill="none" stroke="#d97757">
+        <circle cx="200" cy="200" r="150" strokeWidth="5" strokeOpacity="0.3" />
+        <circle cx="203" cy="198" r="146" strokeWidth="1.5" strokeOpacity="0.2" />
       </g>
       <path
         d="M 82 268 A 150 150 0 0 0 296 330"
         filter="url(#pool)"
         fill="none"
-        stroke="#b4793e"
+        stroke="#c96442"
         strokeWidth="12"
-        strokeOpacity="0.14"
+        strokeOpacity="0.12"
         strokeLinecap="round"
       />
     </svg>

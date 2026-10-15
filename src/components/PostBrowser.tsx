@@ -29,10 +29,10 @@ export function PostBrowser({ posts, tags }: Props) {
         onClick={() => setTag(on && t ? null : t)}
         aria-pressed={on}
         className={`rounded-sm px-2.5 py-1 text-sm transition ${
-          on ? "bg-crema text-espresso" : "bg-roast text-latte hover:bg-roast-2 hover:text-milk"
+          on ? "bg-accent text-paper" : "bg-surface text-body hover:bg-surface-2 hover:text-ink"
         }`}
       >
-        {label} <span className={on ? "text-espresso/70" : "text-mocha"}>{count}</span>
+        {label} <span className={on ? "text-paper/70" : "text-muted"}>{count}</span>
       </button>
     );
   };
@@ -41,20 +41,20 @@ export function PostBrowser({ posts, tags }: Props) {
     <div>
       <div className="flex flex-col gap-5 pb-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <p id="topics-label" className="mb-2.5 text-sm text-mocha">Filter by topic</p>
+          <p id="topics-label" className="mb-2.5 text-sm text-muted">Filter by topic</p>
           <div role="group" aria-labelledby="topics-label" className="flex flex-wrap gap-2">
             {topic(null, "Everything", posts.length)}
             {tags.map(({ tag: t, count }) => topic(t, t, count))}
           </div>
         </div>
         <label className="block md:w-72">
-          <span className="mb-2.5 block text-sm text-mocha">Search titles and summaries</span>
+          <span className="mb-2.5 block text-sm text-muted">Search titles and summaries</span>
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="e.g. LangGraph"
-            className="w-full rounded-sm border border-grounds bg-roast px-3 py-2 text-sm text-milk placeholder:text-mocha/70 focus:border-crema/70 focus:outline-none"
+            className="w-full rounded-sm border border-rule bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted/70 focus:border-accent/70 focus:outline-none"
           />
         </label>
       </div>
@@ -64,14 +64,14 @@ export function PostBrowser({ posts, tags }: Props) {
       </p>
 
       {filtered.length === 0 ? (
-        <div className="border-t border-grounds py-14">
-          <p className="font-serif text-xl text-milk">Nothing here matches that.</p>
-          <p className="mt-2 text-sm text-mocha">
+        <div className="border-t border-rule py-14">
+          <p className="font-serif text-xl text-ink">Nothing here matches that.</p>
+          <p className="mt-2 text-sm text-muted">
             Try a shorter search, or{" "}
             <button
               type="button"
               onClick={() => { setQuery(""); setTag(null); }}
-              className="text-crema underline underline-offset-4"
+              className="text-accent underline underline-offset-4"
             >
               show every post
             </button>
@@ -79,7 +79,7 @@ export function PostBrowser({ posts, tags }: Props) {
           </p>
         </div>
       ) : (
-        <div className="border-b border-grounds">
+        <div className="border-b border-rule">
           {filtered.map((p, i) => (
             <PostEntry key={p.slug} post={p} lead={!filtering && i === 0} />
           ))}

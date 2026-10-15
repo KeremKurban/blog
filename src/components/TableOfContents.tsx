@@ -24,15 +24,15 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
 
   return (
     <nav aria-labelledby="toc-label" className="text-sm">
-      <p id="toc-label" className="mb-3 font-serif text-base italic text-mocha">In this post</p>
-      <ol className="space-y-0.5 border-l border-grounds">
+      <p id="toc-label" className="mb-3 font-serif text-base italic text-muted">In this post</p>
+      <ol className="space-y-0.5 border-l border-rule">
         {items.map((it) => (
           <li key={it.id}>
             <a
               href={`#${it.id}`}
               aria-current={active === it.id ? "location" : undefined}
               className={`-ml-px block border-l-2 py-1.5 leading-snug transition ${it.depth === 3 ? "pl-7" : "pl-4"} ${
-                active === it.id ? "border-crema text-milk" : "border-transparent text-mocha hover:text-latte"
+                active === it.id ? "border-accent text-ink" : "border-transparent text-muted hover:text-body"
               }`}
             >
               {it.text}

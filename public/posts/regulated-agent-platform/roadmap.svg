@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-label="Each stage swaps toy parts for production ones behind the same interfaces" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
+  <rect width="760" height="560" fill="#0d1a30"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8892b0"/></marker>
+  </defs>
+  <text x="32" y="44" font-size="17" font-weight="600" fill="#e6f1ff">Each stage swaps toy parts for production ones</text>
+  <text x="32" y="66" font-size="13" fill="#8892b0">Same six layers throughout; only the implementation behind each one grows up</text>
+
+  <g>
+    <rect x="32" y="88" width="696" height="84" rx="10" fill="#112240" stroke="#233554" stroke-width="1.25"/>
+    <text x="52" y="116" font-size="12" font-family="ui-monospace, Menlo, monospace" fill="#64ffda">STAGE 0</text>
+    <text x="122" y="116" font-size="15" font-weight="600" fill="#e6f1ff">Toy system on a laptop</text>
+    <text x="52" y="140" font-size="13" fill="#ccd6f6">Fake CSVs, SQLite, LangGraph, Python policy dict, hash-chained JSONL audit, CLI approvals</text>
+    <text x="52" y="158" font-size="12.5" fill="#8892b0">Proves all six layers end to end in about a week</text>
+  </g>
+  <g fill="none" stroke="#8892b0" stroke-width="1.25"><path d="M76 172V186"/><polygon points="64,198 76,186 88,198 76,210"/><path d="M76 210V222" marker-end="url(#a)"/></g>
+  <text x="104" y="202" font-size="12.5" fill="#8892b0">Gate: the audit log replays every decision and a paused case survives a restart</text>
+
+  <g>
+    <rect x="32" y="224" width="696" height="84" rx="10" fill="#112240" stroke="#233554" stroke-width="1.25"/>
+    <text x="52" y="252" font-size="12" font-family="ui-monospace, Menlo, monospace" fill="#64ffda">STAGE 1</text>
+    <text x="122" y="252" font-size="15" font-weight="600" fill="#e6f1ff">Shadow mode pilot</text>
+    <text x="52" y="276" font-size="13" fill="#ccd6f6">Real historical cases, read-only; SOP captured as a decision table; RPA bridge wrapped as a tool</text>
+    <text x="52" y="294" font-size="12.5" fill="#8892b0">OPA rules in git, append-only Delta audit, agent versus human dashboard in 2 to 4 weeks</text>
+  </g>
+  <g fill="none" stroke="#8892b0" stroke-width="1.25"><path d="M76 308V322"/><polygon points="64,334 76,322 88,334 76,346"/><path d="M76 346V358" marker-end="url(#a)"/></g>
+  <text x="104" y="338" font-size="12.5" fill="#8892b0">Gate: agreement measured per category and the sponsor approves a scoped paid pilot</text>
+
+  <g>
+    <rect x="32" y="360" width="696" height="84" rx="10" fill="#112240" stroke="#233554" stroke-width="1.25"/>
+    <text x="52" y="388" font-size="12" font-family="ui-monospace, Menlo, monospace" fill="#64ffda">STAGE 2</text>
+    <text x="122" y="388" font-size="15" font-weight="600" fill="#e6f1ff">Human-in-the-loop production</text>
+    <text x="52" y="412" font-size="13" fill="#ccd6f6">Entra ID, gateway on every tool call, approval queue, revalidation on resume</text>
+    <text x="52" y="430" font-size="12.5" fill="#8892b0">One isolated instance per case; categories earn autonomy by measured agreement</text>
+  </g>
+  <g fill="none" stroke="#8892b0" stroke-width="1.25"><path d="M76 444V458"/><polygon points="64,470 76,458 88,470 76,482"/><path d="M76 482V494" marker-end="url(#a)"/></g>
+  <text x="104" y="474" font-size="12.5" fill="#8892b0">Gate: one category runs on its own and every action traces from request to approver</text>
+
+  <g>
+    <rect x="32" y="496" width="696" height="44" rx="10" fill="#64ffda" fill-opacity="0.1" stroke="#64ffda" stroke-width="2"/>
+    <text x="52" y="523" font-size="12" font-family="ui-monospace, Menlo, monospace" fill="#64ffda">STAGE 3</text>
+    <text x="122" y="523" font-size="15" font-weight="600" fill="#e6f1ff">Full regulated platform</text>
+    <text x="320" y="523" font-size="12.5" fill="#ccd6f6">client tenant or on-prem, graph changes only by PR, red teaming</text>
+  </g>
+</svg>

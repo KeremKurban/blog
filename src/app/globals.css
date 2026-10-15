@@ -1,18 +1,30 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+  Coffee palette. One accent (crema); everything else is a roast level.
+  espresso  #1b1410  page
+  roast     #261c16  raised surfaces, code, tables
+  grounds   #3d2e24  rules and borders
+  milk      #f2e6d8  headings, strong text
+  latte     #d8c6b2  body text
+  mocha     #a8927d  secondary text (4.9:1 on espresso)
+  crema     #e3ab6a  links, focus, the one accent
+*/
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --color-ink: #0a1120;
-  --color-panel: #112240;
-  --color-panel-2: #172a4d;
-  --color-line: #233554;
-  --color-fg: #e6f1ff;
-  --color-soft: #ccd6f6;
-  --color-muted: #8892b0;
-  --color-accent: #64ffda;
-  --color-accent-strong: #4fd1b5;
+
+  --color-espresso: #1b1410;
+  --color-roast: #261c16;
+  --color-roast-2: #2f231b;
+  --color-grounds: #3d2e24;
+  --color-milk: #f2e6d8;
+  --color-latte: #d8c6b2;
+  --color-mocha: #a8927d;
+  --color-crema: #e3ab6a;
+  --color-crema-strong: #f0be85;
 }
 
 html {
@@ -21,139 +33,152 @@ html {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-fg);
+  background: var(--color-espresso);
+  color: var(--color-latte);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgb(100 255 218 / 0.25);
+  background: rgb(227 171 106 / 0.28);
+  color: var(--color-milk);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-crema);
   outline-offset: 3px;
-  border-radius: 6px;
-}
-
-/* Subtle grid behind the page header, echoing an engineering notebook. */
-.grid-bg {
-  background-image:
-    linear-gradient(to right, rgb(35 53 84 / 0.35) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(35 53 84 / 0.35) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse at top, black 30%, transparent 75%);
+  border-radius: 4px;
 }
 
 /* ---------- Article typography ---------- */
 .article {
-  --tw-prose-body: var(--color-soft);
-  --tw-prose-headings: var(--color-fg);
-  --tw-prose-lead: var(--color-soft);
-  --tw-prose-links: var(--color-accent);
-  --tw-prose-bold: var(--color-fg);
-  --tw-prose-counters: var(--color-muted);
-  --tw-prose-bullets: var(--color-accent-strong);
-  --tw-prose-hr: var(--color-line);
-  --tw-prose-quotes: var(--color-fg);
-  --tw-prose-quote-borders: var(--color-accent);
-  --tw-prose-code: var(--color-fg);
-  --tw-prose-pre-code: var(--color-soft);
-  --tw-prose-pre-bg: #0d1a30;
-  --tw-prose-th-borders: var(--color-line);
-  --tw-prose-td-borders: rgb(35 53 84 / 0.6);
-  font-size: 1.0625rem;
-  line-height: 1.75;
+  --tw-prose-body: var(--color-latte);
+  --tw-prose-headings: var(--color-milk);
+  --tw-prose-lead: var(--color-latte);
+  --tw-prose-links: var(--color-crema);
+  --tw-prose-bold: var(--color-milk);
+  --tw-prose-counters: var(--color-mocha);
+  --tw-prose-bullets: var(--color-crema);
+  --tw-prose-hr: var(--color-grounds);
+  --tw-prose-quotes: var(--color-milk);
+  --tw-prose-quote-borders: var(--color-crema);
+  --tw-prose-code: var(--color-milk);
+  --tw-prose-pre-code: var(--color-latte);
+  --tw-prose-pre-bg: var(--color-roast);
+  --tw-prose-th-borders: var(--color-grounds);
+  --tw-prose-td-borders: rgb(61 46 36 / 0.7);
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  line-height: 1.72;
+  font-optical-sizing: auto;
+}
+
+.article h2,
+.article h3 {
+  font-family: var(--font-serif);
+  font-weight: 560;
+  letter-spacing: -0.012em;
 }
 
 .article h2 {
-  margin-top: 3.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--color-line);
-  font-size: 1.6rem;
-  letter-spacing: -0.015em;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-grounds);
+  font-size: 1.85rem;
+  line-height: 1.2;
 }
-.article h3 { letter-spacing: -0.01em; }
+.article > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
 
-.article a { text-decoration-color: rgb(100 255 218 / 0.4); text-underline-offset: 3px; }
-.article a:hover { text-decoration-color: var(--color-accent); }
+.article a {
+  text-decoration-color: rgb(227 171 106 / 0.45);
+  text-underline-offset: 3px;
+  font-weight: inherit;
+}
+.article a:hover { text-decoration-color: var(--color-crema); }
 
 .article .heading-anchor {
   margin-left: 0.5rem;
-  color: var(--color-muted);
+  color: var(--color-mocha);
   text-decoration: none;
+  font-weight: 400;
   opacity: 0;
   transition: opacity 0.15s;
 }
 .article h2:hover .heading-anchor,
-.article h3:hover .heading-anchor { opacity: 1; }
+.article h3:hover .heading-anchor,
+.article .heading-anchor:focus-visible { opacity: 1; }
+
+/* Lists, tables and code switch to the sans so dense material scans quickly. */
+.article li::marker { font-family: var(--font-sans); }
 
 .article :not(pre) > code {
-  background: var(--color-panel);
-  border: 1px solid var(--color-line);
-  border-radius: 6px;
-  padding: 0.1rem 0.35rem;
-  font-size: 0.86em;
+  background: var(--color-roast);
+  border: 1px solid var(--color-grounds);
+  border-radius: 4px;
+  padding: 0.08rem 0.32rem;
+  font-size: 0.8em;
   font-weight: 500;
 }
 .article :not(pre) > code::before,
 .article :not(pre) > code::after { content: none; }
 
-.article figure[data-rehype-pretty-code-figure] { margin: 1.75rem 0; }
+.article figure[data-rehype-pretty-code-figure] { margin: 2rem 0; }
 .article pre {
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
+  border: 1px solid var(--color-grounds);
+  border-radius: 6px;
   padding: 1.1rem 1.25rem;
-  font-size: 0.84rem;
-  line-height: 1.65;
+  font-size: 0.82rem;
+  line-height: 1.7;
   overflow-x: auto;
 }
 .article pre code { font-family: var(--font-mono); }
 
 .article .table-wrap {
-  margin: 1.75rem 0;
+  margin: 2rem 0;
   overflow-x: auto;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  background: rgb(17 34 64 / 0.45);
+  border-top: 1px solid var(--color-grounds);
+  border-bottom: 1px solid var(--color-grounds);
 }
-.article .table-wrap table { margin: 0; font-size: 0.92rem; min-width: 34rem; }
-.article .table-wrap thead { background: var(--color-panel); }
-.article .table-wrap th { padding: 0.7rem 0.9rem; color: var(--color-fg); }
+.article .table-wrap table {
+  margin: 0;
+  min-width: 34rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.article .table-wrap th {
+  padding: 0.75rem 0.9rem 0.6rem;
+  color: var(--color-milk);
+  font-weight: 600;
+  background: var(--color-roast);
+}
 .article .table-wrap td { padding: 0.65rem 0.9rem; vertical-align: top; }
+.article .table-wrap tbody tr:nth-child(even) td { background: rgb(38 28 22 / 0.45); }
 
 .article img {
-  border-radius: 14px;
-  border: 1px solid var(--color-line);
-  background: #0d1a30;
-}
-.article img + em,
-.article p:has(> img) + p > em:only-child {
-  display: block;
-  margin-top: -0.75rem;
-  font-size: 0.9rem;
-  color: var(--color-muted);
-  font-style: normal;
-  text-align: center;
+  border-radius: 6px;
+  border: 1px solid var(--color-grounds);
+  background: var(--color-roast);
 }
 
 .article blockquote {
-  font-style: normal;
-  background: rgb(17 34 64 / 0.6);
-  border-left-width: 3px;
-  border-radius: 0 10px 10px 0;
-  padding: 0.6rem 1.25rem;
+  font-style: italic;
+  border-left-width: 2px;
+  padding-left: 1.25rem;
 }
 .article blockquote p:first-of-type::before,
 .article blockquote p:last-of-type::after { content: none; }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+@media (max-width: 640px) {
+  .article { font-size: 1.0625rem; }
+  .article h2 { font-size: 1.5rem; }
 }
 
-.article > h2:first-child {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

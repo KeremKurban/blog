@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
 import { getAllPosts, getAllTags, tagSlug } from "@/lib/posts";
-import { PostCard } from "@/components/PostCard";
+import { PostEntry } from "@/components/PostEntry";
 
 type Params = { tag: string };
 
@@ -15,7 +14,7 @@ const nameOf = (slug: string) => getAllTags().find(({ tag }) => tagSlug(tag) ===
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { tag } = await params;
-  return { title: `Posts tagged ${nameOf(tag)}` };
+  return { title: `Posts on ${nameOf(tag)}` };
 }
 
 export default async function TagPage({ params }: { params: Promise<Params> }) {
@@ -23,20 +22,15 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
   const name = nameOf(tag);
   const posts = getAllPosts().filter((p) => p.tags.some((t) => tagSlug(t) === tag));
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 sm:pt-14">
-      <a href="/" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent">
-        <ArrowLeft className="size-4" aria-hidden="true" />
-        All posts
-      </a>
-      <h1 className="mt-8 text-3xl font-semibold tracking-tight">
-        <span className="font-mono text-accent">#</span>{name}
-      </h1>
-      <p className="mt-2 text-muted">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
-      <ul className="mt-8 grid gap-5">
+    <div className="mx-auto max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
+      <a href="/" className="text-sm text-mocha transition hover:text-crema">All posts</a>
+      <h1 className="mt-6 font-serif text-[2.4rem] font-medium tracking-tight text-milk">Posts on {name}</h1>
+      <p className="mt-2 text-mocha">{posts.length} {posts.length === 1 ? "post" : "posts"} so far</p>
+      <div className="mt-10 border-b border-grounds">
         {posts.map((p) => (
-          <li key={p.slug}><PostCard post={p} /></li>
+          <PostEntry key={p.slug} post={p} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { getAllPosts, getAllTags } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { PostBrowser } from "@/components/PostBrowser";
+import { CoffeeRing } from "@/components/CoffeeRing";
 
 export default function Home() {
   const posts = getAllPosts();
@@ -8,18 +9,20 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line/60">
-        <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 sm:pt-24">
-          <p className="font-mono text-sm text-accent">~/blog</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-fg sm:text-5xl">{site.tagline}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-soft/85">
-            Long-form notes from building agentic systems in regulated industry, evaluating them, and studying how models
-            reach their outputs. Each post is written to make sense on its own, even if you arrive cold.
+      <section className="relative overflow-hidden">
+        <CoffeeRing className="pointer-events-none absolute -right-28 -top-20 w-[24rem] opacity-50 sm:opacity-100 sm:-right-10 sm:top-0 sm:w-[34rem] lg:right-[6%]" />
+        <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-28">
+          <h1 className="max-w-[17ch] font-serif text-[2.9rem] font-medium leading-[1.04] tracking-[-0.02em] text-milk sm:text-[4.4rem]">
+            {site.tagline}
+          </h1>
+          <p className="mt-7 max-w-[60ch] font-serif text-[1.2rem] leading-relaxed text-latte sm:text-[1.3rem]">
+            Long-form notes from building agentic systems in regulated industry, evaluating them, and studying how
+            models reach their outputs. Every post opens with a short summary and an introduction, so it reads well
+            even if you arrive cold.
           </p>
         </div>
       </section>
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6" aria-label="Posts">
+      <section className="mx-auto max-w-6xl px-5 sm:px-8" aria-label="Posts">
         <PostBrowser posts={posts} tags={tags} />
       </section>
     </>

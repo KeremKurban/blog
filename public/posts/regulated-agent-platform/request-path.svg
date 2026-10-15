@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-label="Every tool call passes the gateway; only approved, still-valid actions execute" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
-  <rect width="760" height="410" fill="#0d1a30"/>
+  <rect width="760" height="410" fill="#221a14"/>
   <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8892b0"/></marker>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#a8927d"/></marker>
   </defs>
-  <text x="24" y="40" font-size="17" font-weight="600" fill="#e6f1ff">Every tool call passes the gateway</text>
-  <text x="24" y="62" font-size="13" fill="#8892b0">Only approved, still-valid actions execute; each box appends to the same per-case audit chain</text>
+  <text x="24" y="40" font-size="17" font-weight="600" fill="#f2e6d8">Every tool call passes the gateway</text>
+  <text x="24" y="62" font-size="13" fill="#a8927d">Only approved, still-valid actions execute; each box appends to the same per-case audit chain</text>
 
-  <g fill="none" stroke="#8892b0" stroke-width="1.25">
+  <g fill="none" stroke="#a8927d" stroke-width="1.25">
     <path d="M184 120H208" marker-end="url(#a)"/>
     <path d="M368 120H384" marker-end="url(#a)"/>
     <path d="M472 160V188"/>
@@ -21,44 +21,44 @@
   </g>
 
   <g text-anchor="middle">
-    <rect x="24" y="92" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="104" y="116" font-size="14" font-weight="600" fill="#e6f1ff">Authenticate</text>
-    <text x="104" y="134" font-size="12" fill="#8892b0">Entra ID token</text>
+    <rect x="24" y="92" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="104" y="116" font-size="14" font-weight="600" fill="#f2e6d8">Authenticate</text>
+    <text x="104" y="134" font-size="12" fill="#a8927d">Entra ID token</text>
 
-    <rect x="208" y="92" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="288" y="116" font-size="14" font-weight="600" fill="#e6f1ff">Plan next step</text>
-    <text x="288" y="134" font-size="12" fill="#8892b0">LangGraph, per case</text>
+    <rect x="208" y="92" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="288" y="116" font-size="14" font-weight="600" fill="#f2e6d8">Plan next step</text>
+    <text x="288" y="134" font-size="12" fill="#a8927d">LangGraph, per case</text>
 
-    <polygon points="384,120 472,80 560,120 472,160" fill="#64ffda" fill-opacity="0.1" stroke="#64ffda" stroke-width="2"/>
-    <text x="472" y="118" font-size="14" font-weight="600" fill="#e6f1ff">Policy gateway</text>
-    <text x="472" y="135" font-size="12" fill="#8892b0">OPA rules</text>
+    <polygon points="384,120 472,80 560,120 472,160" fill="#e3ab6a" fill-opacity="0.1" stroke="#e3ab6a" stroke-width="2"/>
+    <text x="472" y="118" font-size="14" font-weight="600" fill="#f2e6d8">Policy gateway</text>
+    <text x="472" y="135" font-size="12" fill="#a8927d">OPA rules</text>
 
-    <rect x="24" y="224" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="104" y="248" font-size="14" font-weight="600" fill="#e6f1ff">Execute tool</text>
-    <text x="104" y="266" font-size="12" fill="#8892b0">as the user</text>
+    <rect x="24" y="224" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="104" y="248" font-size="14" font-weight="600" fill="#f2e6d8">Execute tool</text>
+    <text x="104" y="266" font-size="12" fill="#a8927d">as the user</text>
 
-    <rect x="208" y="224" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="288" y="248" font-size="14" font-weight="600" fill="#e6f1ff">Approval queue</text>
-    <text x="288" y="266" font-size="12" fill="#8892b0">this case pauses</text>
+    <rect x="208" y="224" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="288" y="248" font-size="14" font-weight="600" fill="#f2e6d8">Approval queue</text>
+    <text x="288" y="266" font-size="12" fill="#a8927d">this case pauses</text>
 
-    <rect x="392" y="224" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="472" y="248" font-size="14" font-weight="600" fill="#e6f1ff">Deny and log</text>
-    <text x="472" y="266" font-size="12" fill="#8892b0">default with no rule</text>
+    <rect x="392" y="224" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="472" y="248" font-size="14" font-weight="600" fill="#f2e6d8">Deny and log</text>
+    <text x="472" y="266" font-size="12" fill="#a8927d">default with no rule</text>
 
-    <rect x="576" y="224" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="656" y="248" font-size="14" font-weight="600" fill="#e6f1ff">Escalate</text>
-    <text x="656" y="266" font-size="12" fill="#8892b0">with fingerprint</text>
+    <rect x="576" y="224" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="656" y="248" font-size="14" font-weight="600" fill="#f2e6d8">Escalate</text>
+    <text x="656" y="266" font-size="12" fill="#a8927d">with fingerprint</text>
 
-    <rect x="208" y="320" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="288" y="344" font-size="14" font-weight="600" fill="#e6f1ff">Reviewer approves</text>
-    <text x="288" y="362" font-size="12" fill="#8892b0">context re-checked</text>
+    <rect x="208" y="320" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="288" y="344" font-size="14" font-weight="600" fill="#f2e6d8">Reviewer approves</text>
+    <text x="288" y="362" font-size="12" fill="#a8927d">context re-checked</text>
 
-    <rect x="576" y="320" width="160" height="56" rx="8" fill="#112240" stroke="#233554" stroke-width="1.25"/>
-    <text x="656" y="344" font-size="14" font-weight="600" fill="#e6f1ff">Ask requester</text>
-    <text x="656" y="362" font-size="12" fill="#8892b0">clarify, then replan</text>
+    <rect x="576" y="320" width="160" height="56" rx="8" fill="#2f231b" stroke="#4a382b" stroke-width="1.25"/>
+    <text x="656" y="344" font-size="14" font-weight="600" fill="#f2e6d8">Ask requester</text>
+    <text x="656" y="362" font-size="12" fill="#a8927d">clarify, then replan</text>
   </g>
 
-  <g font-size="12" fill="#8892b0">
+  <g font-size="12" fill="#a8927d">
     <text x="112" y="212">allow</text>
     <text x="296" y="212">approve</text>
     <text x="480" y="212">deny</text>

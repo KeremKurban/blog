@@ -185,3 +185,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Diagrams with an intrinsic size render at that size, centred, never stretched. */
+.article img[width] {
+  margin-inline: auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

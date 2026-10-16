@@ -1,0 +1,29 @@
+---
+config:
+  flowchart:
+    curve: basis
+---
+graph TD;
+	__start__([start]):::first
+	plan(plan)
+	gate(gate)
+	escalate(escalate)
+	approval(approval)
+	revalidate(revalidate)
+	execute(execute)
+	__end__([end]):::last
+	__start__ --> plan;
+	plan --> gate;
+	gate -. deny .-> __end__;
+	gate -. unhandled .-> escalate;
+	gate -. allow .-> execute;
+	gate -. approve .-> approval;
+	approval -. deny .-> __end__;
+	approval -. allow .-> revalidate;
+	revalidate -. fresh .-> execute;
+	revalidate -. stale .-> plan;
+	escalate --> __end__;
+	execute --> __end__;
+	classDef default fill:#faf9f5,stroke:#cfcabb,color:#141413
+	classDef first fill:#f0eee6,stroke:#cfcabb,color:#6f6b5e
+	classDef last fill:#f0eee6,stroke:#cfcabb,color:#6f6b5e

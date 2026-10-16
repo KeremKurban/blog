@@ -52,7 +52,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
             {post.title}
           </h1>
           <p className="mt-6 font-serif text-[1.25rem] italic leading-relaxed text-body">{post.summary}</p>
-          <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-3">
+          <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-4">
             <div>
               <dt className="text-muted">Written by</dt>
               <dd className="mt-0.5 text-ink">{site.name}</dd>
@@ -61,11 +61,15 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
               <dt className="text-muted">Published</dt>
               <dd className="mt-0.5 text-ink"><time dateTime={post.date}>{formatDate(post.date)}</time></dd>
             </div>
+            {post.updated ? (
+              <div>
+                <dt className="text-muted">Updated</dt>
+                <dd className="mt-0.5 text-ink"><time dateTime={post.updated}>{formatDate(post.updated)}</time></dd>
+              </div>
+            ) : null}
             <div>
-              <dt className="text-muted">{post.updated ? "Updated" : "Reading time"}</dt>
-              <dd className="mt-0.5 text-ink">
-                {post.updated ? <time dateTime={post.updated}>{formatDate(post.updated)}</time> : `${post.readingMinutes} minutes`}
-              </dd>
+              <dt className="text-muted">Reading time</dt>
+              <dd className="mt-0.5 text-ink">{post.readingMinutes} minutes</dd>
             </div>
           </dl>
           <ul className="mt-4 flex flex-wrap gap-2 border-b border-rule pb-4" aria-label="Topics">

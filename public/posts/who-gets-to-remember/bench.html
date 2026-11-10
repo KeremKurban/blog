@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The β Dial</title>
+<title>The β Dial: retrieval bench</title>
 <meta name="description" content="Interactive figure for the post Who Gets to Remember?: how the softmax inverse temperature β decides how many memories win.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,22 +119,14 @@ footer { font-size: .9rem; color: var(--muted); border-top: 1px solid var(--rule
 .try { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .4rem; }
 .try li::marker { color: var(--memB); }
 h1 em { color: var(--accent); }
+
+body { background: var(--paper); }
+.embed-body { padding: 0; }
+.lab { border-radius: 8px; }
 </style>
 </head>
-<body>
-<main class="wrap">
-  <a class="back" href="/posts/who-gets-to-remember/">Back to the post: Who Gets to Remember?</a>
-  <header>
-    <span class="eyebrow">Interactive figure · Engrams &amp; Embeddings</span>
-    <h1>The <em>β</em> dial</h1>
-    <p class="dek">Three stored memories, one cue, and the parameter that decides how many of them win.</p>
-  </header>
-
-  <section>
-    <p>Softmax attention is the retrieval step of a modern Hopfield network (Ramsauer et al., 2021). Each stored memory gets a weight equal to softmax(β × similarity to the cue), and the network returns the weighted blend. Memories A and B sit close together on the circle; C points the other way. Drag the ring handle to move the cue. The solid dot is the retrieved state.</p>
-  </section>
-
-  <figure class="lab" aria-label="Interactive softmax retrieval">
+<body class="embed-body">
+<figure class="lab" aria-label="Interactive softmax retrieval">
     <div class="lab-head">
       <strong>Retrieval bench</strong>
       <div class="presets" role="group" aria-label="Presets">
@@ -193,19 +185,6 @@ h1 em { color: var(--accent); }
 
     <figcaption>Similarity is 3 · cos(angle between cue and memory). Entropy is in bits; the maximum for three memories is 1.58. Try β 1 with the cue between A and B, then raise the norm growth slider and watch the blend collapse to one memory.</figcaption>
   </figure>
-
-  <section>
-    <h2>What to try</h2>
-    <ol class="try">
-      <li>Press the Engram preset and park the cue between A and B. The two related memories share the weight and C drops out.</li>
-      <li>Press the Swarm preset. One memory takes almost all of the weight, even when the cue sits close to both A and B.</li>
-      <li>Return to β 1 and raise the norm growth slider. The blend collapses to one memory without β itself changing. This is attention entropy collapse in miniature.</li>
-      <li>Tick QK-norm. The norm slider stops having any effect, because the lengths of queries and keys are fixed again.</li>
-    </ol>
-  </section>
-
-  <footer>Mustafa Kerem Kurban · Figure for <a href="/posts/who-gets-to-remember/">Who Gets to Remember?</a>, the first post of the Engrams &amp; Embeddings series. Reference: Ramsauer, H., et al. (2021). Hopfield networks is all you need. <i>International Conference on Learning Representations</i>.</footer>
-</main>
 <script>
 (function () {
   var R = 100, SCALE = 3;

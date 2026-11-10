@@ -27,8 +27,21 @@ Kerem Kurban's blog. A static Next.js export deployed to GitHub Pages by `.githu
 Every post must make sense to someone arriving cold, months later:
 
 - `## TL;DR` first: what the post concludes, in two or three sentences.
-- `## Introduction` next: where the topic came from, the problem, why it matters, and how to read the rest.
-- Then the main sections. Add a `## Glossary` when the post uses specialist terms.
+- Then go straight into the story under normal section headings, with no signpost labels.
+- Add a `## Glossary` when the post uses specialist terms.
+
+### Interactive figures
+
+Put a self-contained HTML page in `public/posts/<slug>/` and embed it in the post with a fenced block:
+
+````md
+```embed
+/posts/<slug>/figure.html
+Title read by screen readers
+```
+````
+
+It renders as an iframe with a link to open the figure on its own page.
 
 ## Run locally
 

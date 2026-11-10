@@ -123,6 +123,43 @@ function rehypeWrapTables() {
   };
 }
 
+/**
+ * Turns a fenced block written as ```embed (first line: a same-site path, second line: a title)
+ * into a responsive iframe, so a post can carry an interactive figure from public/posts/<slug>/.
+ */
+function rehypeEmbeds() {
+  return (tree: Root) => {
+    visit(tree, "element", (node: Element, index, parent) => {
+      if (node.tagName !== "pre" || !parent || index === undefined) return;
+      const code = node.children[0];
+      if (!code || code.type !== "element" || code.tagName !== "code") return;
+      const classes = (code.properties?.className as string[] | undefined) ?? [];
+      if (!classes.includes("language-embed")) return;
+      const [src = "", title = "Interactive figure"] = textOf(code).trim().split("\n").map((l) => l.trim());
+      if (!src.startsWith("/")) return;
+      parent.children[index] = {
+        type: "element",
+        tagName: "div",
+        properties: { className: ["embed"] },
+        children: [
+          {
+            type: "element",
+            tagName: "iframe",
+            properties: { src, title, loading: "lazy" },
+            children: [],
+          },
+          {
+            type: "element",
+            tagName: "a",
+            properties: { href: src, className: ["embed-link"] },
+            children: [{ type: "text", value: "Open the figure on its own page" }],
+          },
+        ],
+      };
+    });
+  };
+}
+
 export async function getPost(slug: string): Promise<Post> {
   const meta = toMeta(slug);
   if (!meta) throw new Error(`Post ${slug} is missing a title or date`);
@@ -140,6 +177,7 @@ export async function getPost(slug: string): Promise<Post> {
       properties: { className: ["heading-anchor"], ariaHidden: "true", tabIndex: -1 },
       content: { type: "text", value: "#" },
     })
+    .use(rehypeEmbeds)
     .use(rehypePrettyCode, { theme: "github-light", keepBackground: false })
     .use(rehypeWrapTables)
     .use(rehypeStringify)

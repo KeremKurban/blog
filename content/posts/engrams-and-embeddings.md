@@ -9,8 +9,6 @@ tags: [Engrams & Embeddings, Neuroscience, Interpretability, AI Safety]
 
 This series follows one question across neuroscience and machine learning: when many units could store a memory or make a decision, how many of them actually get to, and which ones? I think the answer tells us something about how brains work, how to read what a model has learned, and how to take dangerous things back out of it.
 
-## Introduction
-
 In early November I went to two evening lectures in Geneva, one day after the other. Sheena Josselyn talked about how a memory is born, and Iain Couzin talked about how groups of animals decide where to go. I had taken a summer course with Sheena a couple of years ago, so I came for her talk. On the walk home after the second one, I realised both of them had described the same thing: a competition over who gets to represent something.
 
 I spend most of my time working with machine learning models, and I had seen that competition there too, in transformers that suddenly break during training because their attention locks onto a single token. That is where this series comes from.
@@ -25,7 +23,7 @@ I am writing for three groups of people, and I will try to keep every post reada
 
 ## What is coming
 
-1. [Who Gets to Remember?](/posts/who-gets-to-remember/) One parameter, the softmax inverse temperature β, decides whether a competition has one winner, a few or all. It comes with an interactive figure, [the β Dial](/posts/who-gets-to-remember/beta-dial.html).
+1. [Who Gets to Remember?](/posts/who-gets-to-remember/) One parameter, the softmax inverse temperature β, decides whether a competition has one winner, a few or all. It has an interactive figure, the β Dial, built into the post.
 2. Where allocation happens inside a transformer: MLP neurons, mixture-of-experts routing and sparse autoencoders, with an experiment that makes some units more "excitable" before training and checks whether a new fact lands there.
 3. A small model whose excitability rises and fades, to see whether it links memories learned close together in time, the way brains do.
 4. Grokking, and whether a model's sudden jump to generalization is also a jump to sparser representations.

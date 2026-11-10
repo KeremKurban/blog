@@ -4,7 +4,9 @@ Static Next.js export, posts in `content/posts/*.md`. See README.md for frontmat
 
 ## Rules from Kerem
 
-- Every post is written for a first-time reader who has no memory of the conversation it came from: TL;DR, then Introduction (origin, problem, why it matters, how to read), then main sections, then a Glossary when needed. Never start mid-topic.
+- Every post is written for a first-time reader who has no memory of the conversation it came from. Open with `## TL;DR`, then go straight into the story under normal section headings. No `## Introduction` with signpost labels ("Where this comes from", "Why it matters", "How to read this"). Add a Glossary when needed.
+- Write in Kerem's voice: his phrasing and the order he tells things in, short sentences, no stated personal opinions, APA 7 citations in professional posts.
+- Interactive figures go inside the post as an ```embed block (path on line 1, title on line 2) pointing to a page in `public/posts/<slug>/`, not as a separate page the reader is sent to.
 - Public content: never name a company Kerem interviewed with, a client, or an employer's internal systems unless he explicitly says to.
 - No em dashes in prose.
 - Do not publish or change a post's content without his explicit choice.

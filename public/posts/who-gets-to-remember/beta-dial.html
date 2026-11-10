@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The β Dial</title>
+<meta name="description" content="Interactive figure for the post Who Gets to Remember?: how the softmax inverse temperature β decides how many memories win.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,650;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column, with one wide "lab bench" figure where the dial lives. */
+:root {
+  --paper: #faf9f5;
+  --panel: #f0eee6;
+  --ink: #141413;
+  --body: #3d3929;
+  --muted: #6f6b5e;
+  --rule: #dedcd1;
+  --accent: #ae4f2c;
+  --hot: #8f3f22;
+  --memB: #d97757;
+  --memC: #6f6b5e;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+
+body { background: var(--paper); color: var(--body); font-family: var(--serif); font-size: 1.125rem; line-height: 1.65; margin: 0; }
+.wrap {
+  max-width: 44rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2.5rem 4rem;
+  display: flex; flex-direction: column; gap: 2.25rem;
+}
+header { display: flex; flex-direction: column; gap: .5rem; }
+.eyebrow { font-family: var(--sans); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.02; font-weight: 650; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+.dek { font-size: 1.25rem; color: var(--muted); margin: 0; text-wrap: balance; }
+h2 { font-size: 1.55rem; line-height: 1.2; font-weight: 650; margin: 0 0 .6rem; text-wrap: balance; }
+h2 .n { font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--muted); margin-right: .6rem; vertical-align: .2em; }
+p { margin: 0 0 .9rem; }
+section > p:last-child { margin-bottom: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+code, .m { font-family: var(--mono); font-size: .88em; }
+
+.tldr { border-left: 3px solid var(--accent); padding: .2rem 0 .2rem 1.1rem; }
+.tldr .eyebrow { margin-bottom: .35rem; display: block; }
+.tldr p { margin: 0; font-size: 1.15rem; }
+
+.eq { font-family: var(--mono); font-size: .95rem; background: var(--panel); border-radius: 6px; padding: .9rem 1rem; overflow-x: auto; white-space: nowrap; margin: .2rem 0 1rem; }
+.eq .b { color: var(--hot); font-weight: 500; }
+
+.table-wrap { overflow-x: auto; margin: .3rem 0 1rem; }
+table { border-collapse: collapse; width: 100%; font-size: .98rem; }
+th, td { text-align: left; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: .9rem; }
+td.win { color: var(--hot); font-weight: 500; }
+
+/* The lab bench */
+.lab { margin: 0; background: var(--panel); border-radius: 10px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.lab-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .5rem; }
+.lab-head strong { font-size: 1.15rem; }
+.presets { display: flex; gap: .4rem; flex-wrap: wrap; }
+.presets button {
+  font-family: var(--mono); font-size: .75rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--rule); border-radius: 999px; padding: .3rem .7rem; cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); color: var(--accent); }
+.presets button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; align-items: center; }
+@media (max-width: 620px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+#plane { width: 100%; max-width: 340px; justify-self: center; touch-action: none; cursor: grab; display: block; }
+#plane:active { cursor: grabbing; }
+
+.readout { display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+.regime { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.chip { font-family: var(--mono); font-size: .78rem; padding: .25rem .65rem; border-radius: 999px; background: var(--accent); color: var(--paper); font-weight: 500; }
+.chip[data-r="one"] { background: var(--hot); }
+.chip[data-r="avg"] { background: var(--memC); }
+.regime span:last-child { font-size: .95rem; color: var(--muted); }
+.bars { display: flex; flex-direction: column; gap: .45rem; }
+.bar { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) 3.2rem; align-items: center; gap: .5rem; font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.track { height: .9rem; background: var(--paper); border-radius: 3px; overflow: hidden; }
+.fill { height: 100%; width: 0; border-radius: 3px; transition: width .12s ease-out; }
+.bar .v { text-align: right; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+.stat { display: flex; flex-direction: column; }
+.stat .k { font-family: var(--sans); font-size: .78rem; color: var(--muted); }
+.stat .val { font-family: var(--mono); font-size: 1rem; font-variant-numeric: tabular-nums; }
+
+.controls { display: grid; grid-template-columns: minmax(0, 1fr); gap: .9rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.ctl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .15rem .75rem; align-items: baseline; }
+.ctl label { font-size: 1rem; }
+.ctl output { font-family: var(--mono); font-size: .88rem; font-variant-numeric: tabular-nums; color: var(--accent); }
+.ctl input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+.ctl small { grid-column: 1 / -1; color: var(--muted); font-size: .88rem; line-height: 1.4; }
+.ctl.qk { border-top: 1px dashed var(--rule); padding-top: .9rem; }
+.toggle { display: flex; align-items: center; gap: .5rem; font-size: 1rem; grid-column: 1 / -1; cursor: pointer; }
+.toggle input { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+.lab figcaption { font-size: .92rem; color: var(--muted); line-height: 1.45; }
+
+.refs { font-size: .95rem; }
+.refs ol { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: .45rem; }
+.refs li { color: var(--muted); }
+.refs li b { color: var(--ink); font-weight: 500; }
+.note { font-size: .95rem; color: var(--muted); font-style: italic; }
+footer { font-size: .9rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+
+.back { font-family: var(--sans); font-size: .9rem; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--accent); }
+.try { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .4rem; }
+.try li::marker { color: var(--memB); }
+h1 em { color: var(--accent); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/posts/who-gets-to-remember/">Back to the post: Who Gets to Remember?</a>
+  <header>
+    <span class="eyebrow">Interactive figure · Engrams &amp; Embeddings</span>
+    <h1>The <em>β</em> dial</h1>
+    <p class="dek">Three stored memories, one cue, and the parameter that decides how many of them win.</p>
+  </header>
+
+  <section>
+    <p>Softmax attention is the retrieval step of a modern Hopfield network (Ramsauer et al., 2021). Each stored memory gets a weight equal to softmax(β × similarity to the cue), and the network returns the weighted blend. Memories A and B sit close together on the circle; C points the other way. Drag the ring handle to move the cue. The solid dot is the retrieved state.</p>
+  </section>
+
+  <figure class="lab" aria-label="Interactive softmax retrieval">
+    <div class="lab-head">
+      <strong>Retrieval bench</strong>
+      <div class="presets" role="group" aria-label="Presets">
+        <button type="button" data-beta="0.1">Diffuse, β 0.1</button>
+        <button type="button" data-beta="1">Engram, β 1</button>
+        <button type="button" data-beta="20">Swarm, β 20</button>
+      </div>
+    </div>
+
+    <div class="bench">
+      <svg id="plane" viewBox="-135 -135 270 270" role="img" aria-label="Memories on a circle with the cue and the retrieved state">
+        <circle cx="0" cy="0" r="100" fill="none" stroke="var(--rule)" stroke-width="1.5"></circle>
+        <line x1="-108" y1="0" x2="108" y2="0" stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 4"></line>
+        <line x1="0" y1="-108" x2="0" y2="108" stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 4"></line>
+        <g id="links"></g>
+        <g id="mems"></g>
+        <g id="cue">
+          <line id="cueLine" x1="0" y1="0" x2="100" y2="0" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"></line>
+          <circle id="cueRing" cx="100" cy="0" r="11" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"></circle>
+          <text id="cueText" x="100" y="0" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle" dominant-baseline="central">cue</text>
+        </g>
+        <circle id="retr" cx="0" cy="0" r="7" fill="var(--hot)" stroke="var(--paper)" stroke-width="2"></circle>
+      </svg>
+
+      <div class="readout" aria-live="polite">
+        <div class="regime"><span class="chip" id="chip">Blend of a few</span><span id="regimeText"></span></div>
+        <div class="bars" id="bars"></div>
+        <div class="stats">
+          <div class="stat"><span class="k">effective β</span><span class="val" id="betaEff">1.00</span></div>
+          <div class="stat"><span class="k">entropy</span><span class="val" id="ent">0.00</span></div>
+          <div class="stat"><span class="k">top weight</span><span class="val" id="top">0.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="ctl">
+        <label for="beta">β, how decisive retrieval is</label>
+        <output id="betaOut" for="beta">1.00</output>
+        <input type="range" id="beta" min="0" max="1000" value="500">
+        <small>Log scale from 0.05 to 20. In the brain, a loose analogue is the strength of competition, which inhibition helps set.</small>
+      </div>
+      <div class="ctl">
+        <label for="cueAng">Cue direction</label>
+        <output id="cueOut" for="cueAng">10°</output>
+        <input type="range" id="cueAng" min="0" max="359" value="10">
+      </div>
+      <div class="ctl qk">
+        <label for="norm">Query and key norm growth</label>
+        <output id="normOut" for="norm">×1.0</output>
+        <input type="range" id="norm" min="10" max="40" value="10">
+        <small>During training |q| and |k| can grow. Both scale the logit, so the effective β grows with the square of this factor.</small>
+        <label class="toggle"><input type="checkbox" id="qknorm"> Apply QK-norm (normalise q and k before the dot product)</label>
+      </div>
+    </div>
+
+    <figcaption>Similarity is 3 · cos(angle between cue and memory). Entropy is in bits; the maximum for three memories is 1.58. Try β 1 with the cue between A and B, then raise the norm growth slider and watch the blend collapse to one memory.</figcaption>
+  </figure>
+
+  <section>
+    <h2>What to try</h2>
+    <ol class="try">
+      <li>Press the Engram preset and park the cue between A and B. The two related memories share the weight and C drops out.</li>
+      <li>Press the Swarm preset. One memory takes almost all of the weight, even when the cue sits close to both A and B.</li>
+      <li>Return to β 1 and raise the norm growth slider. The blend collapses to one memory without β itself changing. This is attention entropy collapse in miniature.</li>
+      <li>Tick QK-norm. The norm slider stops having any effect, because the lengths of queries and keys are fixed again.</li>
+    </ol>
+  </section>
+
+  <footer>Mustafa Kerem Kurban · Figure for <a href="/posts/who-gets-to-remember/">Who Gets to Remember?</a>, the first post of the Engrams &amp; Embeddings series. Reference: Ramsauer, H., et al. (2021). Hopfield networks is all you need. <i>International Conference on Learning Representations</i>.</footer>
+</main>
+<script>
+(function () {
+  var R = 100, SCALE = 3;
+  var mems = [
+    { id: "A", ang: 0,   color: "var(--accent)" },
+    { id: "B", ang: 35,  color: "var(--memB)" },
+    { id: "C", ang: 150, color: "var(--memC)" }
+  ];
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("plane");
+  var memsG = document.getElementById("mems");
+  var linksG = document.getElementById("links");
+  var barsEl = document.getElementById("bars");
+  var betaIn = document.getElementById("beta");
+  var cueIn = document.getElementById("cueAng");
+  var normIn = document.getElementById("norm");
+  var qkIn = document.getElementById("qknorm");
+
+  function rad(d) { return d * Math.PI / 180; }
+  function pos(d, r) { return [r * Math.cos(rad(d)), -r * Math.sin(rad(d))]; }
+  function el(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+  var links = [], bars = [];
+  mems.forEach(function (m) {
+    var p = pos(m.ang, R), lp = pos(m.ang, R + 20);
+    var ln = el("line", { x1: 0, y1: 0, x2: p[0], y2: p[1], stroke: m.color, "stroke-width": 3, "stroke-linecap": "round" });
+    linksG.appendChild(ln); links.push(ln);
+    memsG.appendChild(el("circle", { cx: p[0], cy: p[1], r: 8, fill: m.color }));
+    var t = el("text", { x: lp[0], y: lp[1], fill: "var(--ink)", "font-family": "Newsreader, Georgia, serif", "font-size": 15, "font-weight": 650, "text-anchor": "middle", "dominant-baseline": "central" });
+    t.textContent = m.id; memsG.appendChild(t);
+
+    var row = document.createElement("div"); row.className = "bar";
+    row.innerHTML = '<span>' + m.id + '</span><div class="track"><div class="fill"></div></div><span class="v">0.00</span>';
+    row.querySelector(".fill").style.background = m.color;
+    barsEl.appendChild(row);
+    bars.push({ fill: row.querySelector(".fill"), v: row.querySelector(".v") });
+  });
+
+  function betaFromSlider() { var t = betaIn.value / 1000; return Math.pow(10, -1.30103 + t * 2.60206); }
+  function sliderFromBeta(b) { return Math.round((Math.log10(b) + 1.30103) / 2.60206 * 1000); }
+
+  function update() {
+    var beta = betaFromSlider();
+    var g = normIn.value / 10;
+    var qk = qkIn.checked;
+    var gEff = qk ? 1 : g;
+    var betaEff = beta * gEff * gEff;
+    var cue = +cueIn.value;
+
+    var s = mems.map(function (m) { return SCALE * Math.cos(rad(cue - m.ang)); });
+    var mx = Math.max.apply(null, s);
+    var ex = s.map(function (v) { return Math.exp(betaEff * (v - mx)); });
+    var Z = ex.reduce(function (a, b) { return a + b; }, 0);
+    var p = ex.map(function (v) { return v / Z; });
+
+    var rx = 0, ry = 0, H = 0, top = 0;
+    p.forEach(function (pi, i) {
+      var q = pos(mems[i].ang, R);
+      rx += pi * q[0]; ry += pi * q[1];
+      if (pi > 1e-12) H -= pi * Math.log2(pi);
+      if (pi > top) top = pi;
+      links[i].setAttribute("opacity", (0.08 + 0.85 * pi).toFixed(3));
+      bars[i].fill.style.width = (pi * 100).toFixed(1) + "%";
+      bars[i].v.textContent = pi.toFixed(2);
+    });
+    // links run from the retrieved point to each memory
+    p.forEach(function (pi, i) {
+      links[i].setAttribute("x1", rx.toFixed(2));
+      links[i].setAttribute("y1", ry.toFixed(2));
+    });
+    var r = document.getElementById("retr");
+    r.setAttribute("cx", rx.toFixed(2)); r.setAttribute("cy", ry.toFixed(2));
+
+    var c = pos(cue, R);
+    document.getElementById("cueRing").setAttribute("cx", c[0]); document.getElementById("cueRing").setAttribute("cy", c[1]);
+    document.getElementById("cueText").setAttribute("x", c[0]); document.getElementById("cueText").setAttribute("y", c[1]);
+    document.getElementById("cueLine").setAttribute("x2", c[0]); document.getElementById("cueLine").setAttribute("y2", c[1]);
+
+    var Hn = H / Math.log2(3);
+    var chip = document.getElementById("chip"), txt = document.getElementById("regimeText");
+    if (top >= 0.9) { chip.dataset.r = "one"; chip.textContent = "One winner"; txt.textContent = "Like a swarm committing to one target"; }
+    else if (Hn >= 0.85) { chip.dataset.r = "avg"; chip.textContent = "Global average"; txt.textContent = "Fully distributed, no decision yet"; }
+    else { chip.dataset.r = "few"; chip.textContent = "Blend of a few"; txt.textContent = "Sparse, engram-like"; }
+
+    document.getElementById("betaOut").textContent = beta.toFixed(2);
+    document.getElementById("betaEff").textContent = betaEff >= 10 ? betaEff.toFixed(1) : betaEff.toFixed(2);
+    document.getElementById("ent").textContent = H.toFixed(2);
+    document.getElementById("top").textContent = top.toFixed(2);
+    document.getElementById("cueOut").textContent = cue + "°";
+    document.getElementById("normOut").textContent = "×" + g.toFixed(1);
+    normIn.disabled = qk;
+  }
+
+  [betaIn, cueIn, normIn, qkIn].forEach(function (i) { i.addEventListener("input", update); });
+
+  document.querySelectorAll(".presets button").forEach(function (b) {
+    b.addEventListener("click", function () { betaIn.value = sliderFromBeta(+b.dataset.beta); update(); });
+  });
+
+  var dragging = false;
+  function angleFromEvent(e) {
+    var pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    var m = svg.getScreenCTM(); if (!m) return null;
+    var lp = pt.matrixTransform(m.inverse());
+    var a = Math.atan2(-lp.y, lp.x) * 180 / Math.PI;
+    return Math.round((a + 360) % 360);
+  }
+  svg.addEventListener("pointerdown", function (e) {
+    dragging = true; try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+    var a = angleFromEvent(e); if (a !== null) { cueIn.value = a; update(); }
+  });
+  svg.addEventListener("pointermove", function (e) {
+    if (!dragging) return; var a = angleFromEvent(e); if (a !== null) { cueIn.value = a; update(); }
+  });
+  ["pointerup", "pointercancel"].forEach(function (t) { svg.addEventListener(t, function () { dragging = false; }); });
+
+  update();
+})();
+</script>
+</body>
+</html>
